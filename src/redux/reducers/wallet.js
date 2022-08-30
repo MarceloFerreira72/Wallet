@@ -1,4 +1,4 @@
-// import actions from ../actions
+import { GET_CURRENCY_LIST } from '../actions';
 
 const initialState = {
   currencies: [],
@@ -9,6 +9,11 @@ const initialState = {
 
 function walletReducer(state = initialState, action) {
   switch (action.type) {
+  case GET_CURRENCY_LIST:
+    return {
+      ...state,
+      currencies: action.currencies,
+    };
   default:
     return state;
   }

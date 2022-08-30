@@ -22,7 +22,6 @@ const mapStateToProps = (state) => ({
 });
 
 Header.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
   userLogin: PropTypes.shape({
     email: PropTypes.string,
   }).isRequired,
