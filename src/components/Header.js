@@ -35,8 +35,6 @@ class Header extends Component {
   }
 }
 
-// expenses.reduce((acc, { value, conversion }) => acc + (value * conversion), 0).toFixed(2),
-
 const mapStateToProps = (state) => ({
   userLogin: state.user,
   expenses: state.wallet.expenses,
