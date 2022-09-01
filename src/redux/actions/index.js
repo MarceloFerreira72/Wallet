@@ -9,10 +9,10 @@ export const getCurrencyList = () => async (dispatch) => {
   const response = await fetch(BASE_API);
   const data = await response.json();
   const arrayList = Object.keys(data);
-  arrayList.splice(1, 1);
+  const correctArray = arrayList.filter((element) => element !== 'USDT');
   dispatch({
     type: GET_CURRENCY_LIST,
-    currencies: arrayList,
+    currencies: correctArray,
   });
 };
 export const saveExpense = (expense) => async (dispatch) => {

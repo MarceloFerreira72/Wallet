@@ -39,13 +39,11 @@ class Login extends React.Component {
         <input
           type="email"
           onChange={ (e) => this.setState({ email: e.target.value }) }
-          placeholder="E-mail"
           data-testid="email-input"
         />
         <input
           type="password"
           onChange={ (e) => this.setState({ password: e.target.value }) }
-          placeholder="Senha"
           data-testid="password-input"
         />
         <button
