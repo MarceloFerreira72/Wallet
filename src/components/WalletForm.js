@@ -7,11 +7,11 @@ class WalletForm extends Component {
   constructor() {
     super();
     this.state = {
-      value: 0,
+      value: '',
       description: '',
       currency: 'USD',
-      payment: 'money',
-      type: 'food',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       expensesState: [],
     };
   }
@@ -21,9 +21,9 @@ class WalletForm extends Component {
     dispatch(getCurrencyList());
   }
 
-  handleSubmit = async (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    const { value, description, currency, payment, type } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { expenses, dispatch } = this.props;
     const id = expenses.length;
     const expense = {
@@ -31,13 +31,13 @@ class WalletForm extends Component {
       value,
       description,
       currency,
-      payment,
-      type,
+      method,
+      tag,
     };
-    dispatch(saveExpense([...expenses, expense], currency));
+    dispatch(saveExpense({ ...expense }));
     this.setState((state) => ({
       expensesState: [...state.expensesState, expense],
-    }), this.setState({ value: 0, description: '' }));
+    }), this.setState({ value: '', description: '' }));
   };
 
   handleChange = ({ target }) => {
@@ -83,19 +83,23 @@ class WalletForm extends Component {
         </select>
         <select
           onChange={ this.handleChange }
-          name="payment"
+          name="method"
           data-testid="method-input"
         >
-          <option value="money">Dinheiro</option>
-          <option value="credit">Cartão de crédito</option>
-          <option value="debit">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
-        <select name="type" data-testid="tag-input">
-          <option value="food">Alimentação</option>
-          <option value="fun">Lazer</option>
-          <option value="job">Trabalho</option>
-          <option value="transport">Transporte</option>
-          <option value="health">Saúde</option>
+        <select
+          onChange={ this.handleChange }
+          name="tag"
+          data-testid="tag-input"
+        >
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
         <button type="submit">Adicionar Despesa</button>
       </form>

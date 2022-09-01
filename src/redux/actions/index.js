@@ -2,10 +2,11 @@ export const LOGIN = 'LOGIN';
 export const GET_CURRENCY_LIST = 'GET_CURRENCY_LIST';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 
+const BASE_API = 'https://economia.awesomeapi.com.br/json/all';
+
 export const login = (value) => ({ type: LOGIN, value });
 export const getCurrencyList = () => async (dispatch) => {
-  const CURRENCY_BASE_API = 'https://economia.awesomeapi.com.br/json/all';
-  const response = await fetch(CURRENCY_BASE_API);
+  const response = await fetch(BASE_API);
   const data = await response.json();
   const arrayList = Object.keys(data);
   arrayList.splice(1, 1);
@@ -14,15 +15,12 @@ export const getCurrencyList = () => async (dispatch) => {
     currencies: arrayList,
   });
 };
-export const saveExpense = (value, currency) => async (dispatch) => {
-  const ATUAL_PRICE_API = `https://economia.awesomeapi.com.br/${currency}-BRL/1`;
-  const response = await fetch(ATUAL_PRICE_API);
+export const saveExpense = (expense) => async (dispatch) => {
+  const response = await fetch(BASE_API);
   const data = await response.json();
-  const { ask } = data[0];
-  console.log(value);
-  value[value.length - 1].conversion = ask;
+  const payload = { ...expense, exchangeRates: data };
   dispatch({
     type: SAVE_EXPENSE,
-    expenses: [...value],
+    expenses: payload,
   });
 };

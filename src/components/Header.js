@@ -3,26 +3,39 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
+  conversor = ({ currency, exchangeRates, value }) => {
+    const currencyInfo = Object
+      .entries(exchangeRates).find((element) => element[0] === currency);
+    return value * currencyInfo[1].ask;
+  };
+
   render() {
+    const initialValue = 0;
     const defaultCurrency = 'BRL';
     const { userLogin, expenses } = this.props;
     return (
       <div>
         <p data-testid="email-field">{userLogin.email}</p>
-        <p data-testid="total-field">
-          {
-            parseFloat(
-              expenses
-                .reduce((acc, { value, conversion }) => acc + (value * conversion), 0)
-                .toFixed(2),
+        {
+          expenses.length > 0 ? (
+            <p data-testid="total-field">
+              {parseFloat(expenses.reduce((acc, curr) => acc + this.conversor(curr), 0))
+                .toFixed(2)}
+            </p>
+          )
+            : (
+              <p data-testid="total-field">
+                {initialValue}
+              </p>
             )
-          }
-        </p>
+        }
         <p data-testid="header-currency-field">{defaultCurrency}</p>
       </div>
     );
   }
 }
+
+// expenses.reduce((acc, { value, conversion }) => acc + (value * conversion), 0).toFixed(2),
 
 const mapStateToProps = (state) => ({
   userLogin: state.user,
