@@ -10,7 +10,7 @@ class Header extends Component {
   };
 
   render() {
-    const initialValue = 0;
+    const initialValue = '0.00';
     const defaultCurrency = 'BRL';
     const { userLogin, expenses } = this.props;
     return (

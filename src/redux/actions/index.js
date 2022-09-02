@@ -1,6 +1,7 @@
 export const LOGIN = 'LOGIN';
 export const GET_CURRENCY_LIST = 'GET_CURRENCY_LIST';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 const BASE_API = 'https://economia.awesomeapi.com.br/json/all';
 
@@ -24,3 +25,4 @@ export const saveExpense = (expense) => async (dispatch) => {
     expenses: payload,
   });
 };
+export const deleteExpense = (value) => ({ type: DELETE_EXPENSE, value });
